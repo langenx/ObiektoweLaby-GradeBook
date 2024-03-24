@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace GradeBook.GradeBooks
 {
-    internal class RankedGradeBook : BaseGradeBook
+    public class RankedGradeBook : BaseGradeBook
     {
         public RankedGradeBook(string name, bool isWeighted) : base(name, isWeighted)
         {
@@ -18,7 +18,8 @@ namespace GradeBook.GradeBooks
         {
             if (Students.Count < 5)
             {
-                throw new InvalidOperationException("Ranked grading requires at least 5 students.");
+                throw new InvalidOperationException();
+                
             }
             var threshold = (int)Math.Ceiling(Students.Count * 0.2);
             var grades = Students.OrderByDescending(e => e.AverageGrade).Select(e => e.AverageGrade).ToList();
@@ -50,11 +51,23 @@ namespace GradeBook.GradeBooks
             {
                 Console.WriteLine("Ranked grading requires at least 5 students");
             }
-            else
+            else if(Students.Count >= 5)
             {
                 base.CalculateStatistics();
             }
         }
+        public override void CalculateStudentStatistics(string name)
+        {
+            if (Students.Count < 5)
+            {
+                Console.WriteLine("Ranked grading requires at least 5 students");
+            }
+            else if (Students.Count >= 5)
+            {
+                base.CalculateStudentStatistics(name);
+            }
+        }
     }
+    
 }
 

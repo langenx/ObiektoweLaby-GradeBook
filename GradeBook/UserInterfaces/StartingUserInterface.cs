@@ -1,5 +1,6 @@
 ﻿using GradeBook.GradeBooks;
 using System;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace GradeBook.UserInterfaces
 {
@@ -36,21 +37,21 @@ namespace GradeBook.UserInterfaces
             var parts = command.Split(' ');
             if (parts.Length != 4)
             {
-                Console.WriteLine("Command not valid, Create requires a name, type of gradebook and if it;s weighted (true / false).");
+                Console.WriteLine("Command not valid, Create requires a name, type of gradebook, if it's weighted (true / false).");
                 return;
             }
             var name = parts[1];
             var type = parts[2];
-            bool isWeighted = bool.Parse(parts[3]);
+            bool IsWeighted = bool.Parse(parts[3]);
 
             BaseGradeBook gradeBook;
             if (type=="standard")
             {
-                gradeBook = new StandardGradeBook(name, isWeighted);
+                gradeBook = new StandardGradeBook(name, IsWeighted);
             }
             else if (type=="ranked")
             {
-                gradeBook = new RankedGradeBook(name, isWeighted);
+                gradeBook = new RankedGradeBook(name, IsWeighted);
             }
             else
             {
